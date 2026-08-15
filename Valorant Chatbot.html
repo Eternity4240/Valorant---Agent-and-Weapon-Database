@@ -1,0 +1,3261 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>VALORANT // AGENT & WEAPON DATABASE</title>
+
+
+    <script src="https://cdn.botpress.cloud/webchat/v3.7/inject.js"></script>
+<script src="https://files.bpcontent.cloud/2026/08/15/04/20260815044210-ABMV062Y.js" defer></script>
+    
+
+<style>
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family:
+        "Trebuchet MS",
+        "Segoe UI",
+        Arial,
+        sans-serif;
+
+    background: #080d13;
+    color: #fff;
+    overflow-x: hidden;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+button,
+input {
+    font-family: inherit;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+
+    background:
+        radial-gradient(
+            circle at 10% 20%,
+            rgba(255,70,85,.13),
+            transparent 30%
+        ),
+        radial-gradient(
+            circle at 90% 70%,
+            rgba(255,70,85,.07),
+            transparent 30%
+        );
+}
+
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: .18;
+
+    background-image:
+        linear-gradient(
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        ),
+        linear-gradient(
+            90deg,
+            rgba(255,255,255,.025) 1px,
+            transparent 1px
+        );
+
+    background-size: 50px 50px;
+}
+
+
+/* =========================================================
+   NAVBAR
+========================================================= */
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+
+    width: 100%;
+    height: 75px;
+
+    padding: 0 6%;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background: rgba(7,12,18,.96);
+    backdrop-filter: blur(15px);
+
+    border-bottom: 1px solid rgba(255,255,255,.08);
+
+    z-index: 1000;
+}
+
+.nav-logo {
+    display: flex;
+    align-items: center;
+
+    font-size: 1.35rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.nav-v {
+    color: #ff4655;
+    font-size: 1.7rem;
+    font-weight: 900;
+    margin-right: 8px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: #aab1b8;
+    font-size: .75rem;
+    font-weight: bold;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: .25s;
+}
+
+.nav-links a:hover {
+    color: #ff4655;
+}
+
+.nav-play {
+    padding: 11px 18px;
+    background: #ff4655;
+    color: white !important;
+}
+
+.mobile-menu {
+    display: none;
+    color: #ff4655;
+    font-size: 1.7rem;
+    cursor: pointer;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+    min-height: calc(100vh - 75px);
+    margin-top: 75px;
+
+    padding: 70px 8% 0;
+
+    position: relative;
+    display: flex;
+    align-items: center;
+
+    overflow: hidden;
+}
+
+.hero-content {
+    position: relative;
+    z-index: 10;
+
+    width: 52%;
+    padding-bottom: 90px;
+}
+
+.eyebrow {
+    color: #ff4655;
+    font-size: .9rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.hero-title {
+    font-size: clamp(4rem,7vw,7.4rem);
+    line-height: .84;
+    letter-spacing: -5px;
+    text-transform: uppercase;
+    font-weight: 900;
+}
+
+.hero-title span {
+    color: #ff4655;
+}
+
+.hero-description {
+    max-width: 650px;
+    margin-top: 30px;
+
+    color: #b8bec5;
+    font-size: 1.02rem;
+    line-height: 1.8;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    margin-top: 35px;
+}
+
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px 25px;
+
+    border: 1px solid #ff4655;
+
+    text-transform: uppercase;
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+
+    cursor: pointer;
+    transition: .3s;
+}
+
+.btn-primary {
+    background: #ff4655;
+    color: white;
+}
+
+.btn-primary:hover {
+    background: transparent;
+    color: #ff4655;
+    transform: translateY(-3px);
+}
+
+.btn-secondary {
+    background: transparent;
+    color: white;
+    border-color: #39414a;
+}
+
+.btn-secondary:hover {
+    border-color: #ff4655;
+    color: #ff4655;
+}
+
+
+/* =========================================================
+   HERO ART
+========================================================= */
+
+.hero-artwork {
+    position: absolute;
+
+    top: 0;
+    right: 0;
+
+    width: 62%;
+    height: 100%;
+
+    z-index: 1;
+    overflow: hidden;
+
+    background: #080d13;
+}
+
+.hero-artwork img {
+    position: absolute;
+
+    right: 0;
+    top: 50%;
+
+    transform: translateY(-50%);
+
+    width: 100%;
+    height: 100%;
+
+    object-fit: contain;
+    object-position: right center;
+}
+
+.hero-artwork::before {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+
+    background:
+        linear-gradient(
+            90deg,
+            #080d13 0%,
+            rgba(8,13,19,.98) 8%,
+            rgba(8,13,19,.84) 22%,
+            rgba(8,13,19,.42) 42%,
+            rgba(8,13,19,.05) 68%,
+            transparent 100%
+        );
+}
+
+.hero-artwork-overlay {
+    position: absolute;
+    inset: 0;
+    z-index: 3;
+
+    background:
+        linear-gradient(
+            to bottom,
+            transparent 58%,
+            rgba(8,13,19,.2) 74%,
+            rgba(8,13,19,.82) 94%,
+            #080d13 100%
+        );
+}
+
+
+/* =========================================================
+   RED SECTION DIVIDERS
+========================================================= */
+
+.section-divider {
+    position: relative;
+    width: 84%;
+    height: 4px;
+    margin: 0 auto;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            rgba(255,70,85,.2),
+            #ff4655,
+            rgba(255,70,85,.2),
+            transparent
+        );
+
+    box-shadow:
+        0 0 8px rgba(255,70,85,.7),
+        0 0 22px rgba(255,70,85,.2);
+}
+
+.section-divider::after {
+    content: "";
+    position: absolute;
+
+    left: 20%;
+    right: 20%;
+    top: 0;
+
+    height: 1px;
+    background: #ff8990;
+}
+
+
+/* =========================================================
+   SECTIONS
+========================================================= */
+
+section {
+    padding: 100px 8%;
+}
+
+.section-label {
+    color: #ff4655;
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    margin-bottom: 10px;
+}
+
+.section-title {
+    font-size: 3rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+.section-subtitle {
+    margin-top: 12px;
+    max-width: 700px;
+
+    color: #8d969f;
+    line-height: 1.7;
+}
+
+.section-header {
+    margin-bottom: 40px;
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
+
+.agent-controls,
+.weapon-controls {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 30px;
+}
+
+.filter-btn {
+    padding: 10px 16px;
+
+    background: #111820;
+
+    border: 1px solid #303943;
+
+    color: #969da5;
+
+    cursor: pointer;
+
+    font-size: .7rem;
+    font-weight: bold;
+    letter-spacing: 1px;
+
+    transition: .25s;
+}
+
+.filter-btn:hover,
+.filter-btn.active {
+    background: #ff4655;
+    color: white;
+    border-color: #ff4655;
+}
+
+.search-box {
+    margin-left: auto;
+    width: 260px;
+
+    padding: 11px 15px;
+
+    background: #10161d;
+
+    border: 1px solid #303943;
+
+    color: white;
+    outline: none;
+}
+
+.search-box:focus {
+    border-color: #ff4655;
+}
+
+
+/* =========================================================
+   AGENT GRID
+========================================================= */
+
+.agent-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(145px,1fr)
+        );
+
+    gap: 12px;
+}
+
+.agent-card {
+    position: relative;
+
+    min-height: 155px;
+
+    padding: 17px 10px 13px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151c24,
+            #0e141a
+        );
+
+    border: 1px solid #262f38;
+
+    cursor: pointer;
+
+    transition:
+        transform .3s,
+        border-color .3s,
+        box-shadow .3s;
+
+    overflow: hidden;
+}
+
+.agent-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #ff4655;
+
+    box-shadow:
+        0 12px 30px rgba(0,0,0,.4),
+        0 0 18px rgba(255,70,85,.1);
+}
+
+.agent-icon {
+    width: 62px;
+    height: 62px;
+
+    object-fit: contain;
+
+    margin-bottom: 10px;
+
+    transition: .3s;
+}
+
+.agent-card:hover .agent-icon {
+    transform: scale(1.1);
+}
+
+.agent-role-small {
+    color: #ff4655;
+
+    font-size: .5rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+
+    margin-bottom: 5px;
+}
+
+.agent-name-small {
+    font-size: .9rem;
+    font-weight: 900;
+    letter-spacing: .6px;
+    text-transform: uppercase;
+}
+
+.agent-number {
+    position: absolute;
+    top: 7px;
+    right: 8px;
+
+    color: #4c5660;
+    font-size: .55rem;
+}
+
+.loading {
+    grid-column: 1/-1;
+
+    text-align: center;
+
+    padding: 80px 20px;
+
+    color: #707982;
+
+    letter-spacing: 3px;
+    font-size: .8rem;
+}
+
+
+/* =========================================================
+   WEAPONS
+========================================================= */
+
+.weapon-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(
+            auto-fill,
+            minmax(190px,1fr)
+        );
+
+    gap: 15px;
+}
+
+.weapon-card {
+    position: relative;
+
+    min-height: 190px;
+
+    padding: 22px 15px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    text-align: center;
+
+    background:
+        linear-gradient(
+            145deg,
+            #151c24,
+            #0d1319
+        );
+
+    border: 1px solid #27313a;
+
+    cursor: pointer;
+
+    overflow: hidden;
+
+    transition:
+        .3s;
+}
+
+.weapon-card:hover {
+    transform: translateY(-5px);
+
+    border-color: #ff4655;
+
+    box-shadow:
+        0 15px 35px rgba(0,0,0,.4),
+        0 0 20px rgba(255,70,85,.12);
+}
+
+.weapon-image {
+    width: 150px;
+    height: 90px;
+
+    object-fit: contain;
+
+    margin-bottom: 15px;
+
+    transition: .3s;
+}
+
+.weapon-card:hover .weapon-image {
+    transform: scale(1.06);
+}
+
+.weapon-category {
+    color: #ff4655;
+
+    font-size: .55rem;
+    font-weight: 900;
+
+    letter-spacing: 2px;
+
+    margin-bottom: 6px;
+}
+
+.weapon-name {
+    font-size: .95rem;
+    font-weight: 900;
+
+    text-transform: uppercase;
+}
+
+.weapon-cost {
+    margin-top: 7px;
+
+    color: #737d87;
+
+    font-size: .7rem;
+}
+
+
+/* =========================================================
+   STRATEGY
+========================================================= */
+
+.strategy-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3,1fr);
+
+    gap: 20px;
+
+    margin-top: 40px;
+}
+
+.strategy-card {
+    padding: 30px;
+
+    background: #10161e;
+
+    border-left: 3px solid #ff4655;
+
+    transition: .3s;
+}
+
+.strategy-card:hover {
+    transform: translateY(-5px);
+    background: #151d26;
+}
+
+.strategy-number {
+    color: #ff4655;
+    font-size: .7rem;
+    letter-spacing: 3px;
+}
+
+.strategy-card h3 {
+    margin: 15px 0;
+
+    text-transform: uppercase;
+    font-size: 1.2rem;
+}
+
+.strategy-card p {
+    color: #8b949d;
+
+    font-size: .84rem;
+    line-height: 1.7;
+}
+
+
+/* =========================================================
+   DOWNLOAD SECTION
+========================================================= */
+
+.download-section {
+    margin: 60px 8% 80px;
+
+    padding: 80px 30px;
+
+    text-align: center;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 20% 50%,
+            rgba(255,70,85,.15),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 80% 50%,
+            rgba(255,70,85,.08),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #171e27,
+            #0b1117
+        );
+
+    border: 1px solid #343c45;
+}
+
+.download-section::before {
+    content: "VALORANT";
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%,-50%)
+        rotate(-8deg);
+
+    font-size: 9rem;
+    font-weight: 900;
+
+    color: rgba(255,255,255,.018);
+
+    white-space: nowrap;
+}
+
+.download-section h2,
+.download-section p,
+.download-button {
+    position: relative;
+    z-index: 2;
+}
+
+.download-section h2 {
+    font-size: 2.8rem;
+    text-transform: uppercase;
+}
+
+.download-section p {
+    color: #929ba4;
+
+    margin: 15px auto 30px;
+
+    max-width: 600px;
+
+    line-height: 1.6;
+}
+
+.download-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px 27px;
+
+    background: #ff4655;
+
+    border: 1px solid #ff6d78;
+
+    color: white;
+
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+
+    transition: .3s;
+}
+
+.download-button:hover {
+    background: transparent;
+    color: #ff4655;
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   DISCORD
+========================================================= */
+
+.discord-section {
+    margin: 0 8% 100px;
+
+    padding: 65px 30px;
+
+    text-align: center;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 15% 50%,
+            rgba(88,101,242,.20),
+            transparent 35%
+        ),
+        radial-gradient(
+            circle at 85% 50%,
+            rgba(88,101,242,.12),
+            transparent 35%
+        ),
+        linear-gradient(
+            135deg,
+            #151a2c,
+            #0b101c
+        );
+
+    border: 1px solid #303a67;
+}
+
+.discord-section::before {
+    content: "COMMUNITY";
+
+    position: absolute;
+
+    left: 50%;
+    top: 50%;
+
+    transform:
+        translate(-50%,-50%)
+        rotate(-7deg);
+
+    font-size: 8rem;
+    font-weight: 900;
+
+    color: rgba(88,101,242,.025);
+
+    white-space: nowrap;
+}
+
+.discord-section h2,
+.discord-section p,
+.discord-button {
+    position: relative;
+    z-index: 2;
+}
+
+.discord-section h2 {
+    font-size: 2.2rem;
+    text-transform: uppercase;
+}
+
+.discord-section p {
+    max-width: 650px;
+
+    margin: 12px auto 25px;
+
+    color: #929ba4;
+
+    line-height: 1.6;
+}
+
+.discord-button {
+    display: inline-flex;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 15px 27px;
+
+    background: #5865f2;
+
+    border: 1px solid #7883ff;
+
+    color: white;
+
+    font-size: .78rem;
+    font-weight: 900;
+    letter-spacing: 1.5px;
+
+    transition: .3s;
+}
+
+.discord-button:hover {
+    background: transparent;
+    color: #7d89ff;
+    transform: translateY(-3px);
+}
+
+
+/* =========================================================
+   MODAL
+========================================================= */
+
+.modal {
+    position: fixed;
+    inset: 0;
+
+    display: none;
+
+    align-items: center;
+    justify-content: center;
+
+    padding: 20px;
+
+    background: rgba(0,0,0,.88);
+
+    backdrop-filter: blur(10px);
+
+    z-index: 2000;
+}
+
+.modal.show {
+    display: flex;
+}
+
+.modal-content {
+    width: min(950px,100%);
+    max-height: 92vh;
+
+    overflow-y: auto;
+
+    background: #10171f;
+
+    border: 1px solid #ff4655;
+
+    position: relative;
+}
+
+.close-modal {
+    position: absolute;
+
+    top: 12px;
+    right: 18px;
+
+    width: 40px;
+    height: 40px;
+
+    background: rgba(0,0,0,.5);
+
+    border: 1px solid rgba(255,255,255,.15);
+
+    color: #aaa;
+
+    font-size: 1.7rem;
+
+    cursor: pointer;
+
+    z-index: 10;
+}
+
+.close-modal:hover {
+    color: #ff4655;
+    border-color: #ff4655;
+}
+
+
+/* =========================================================
+   AGENT MODAL
+========================================================= */
+
+.modal-top {
+    min-height: 390px;
+
+    display: grid;
+
+    grid-template-columns: 42% 58%;
+
+    background:
+        linear-gradient(
+            135deg,
+            #151e28,
+            #0c1117
+        );
+
+    border-bottom: 1px solid #2a333c;
+}
+
+.modal-image-box {
+    min-height: 390px;
+
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-image-box::after {
+    content: "";
+
+    position: absolute;
+    inset: 0;
+
+    background:
+        linear-gradient(
+            to right,
+            transparent 50%,
+            #111820 100%
+        );
+}
+
+.modal-portrait {
+    width: 100%;
+    height: 100%;
+
+    object-fit: cover;
+    object-position: center top;
+}
+
+.modal-info {
+    padding: 55px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.modal-role {
+    color: #ff4655;
+
+    font-size: .7rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.modal-title {
+    margin: 8px 0 18px;
+
+    font-size: clamp(3rem,5vw,5rem);
+
+    line-height: .9;
+
+    text-transform: uppercase;
+}
+
+.modal-description {
+    color: #a0a8b0;
+
+    line-height: 1.75;
+
+    max-width: 550px;
+}
+
+.modal-abilities-section {
+    padding: 30px 40px 40px;
+}
+
+.abilities-title {
+    color: #ff4655;
+
+    font-size: .72rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+
+    margin-bottom: 18px;
+}
+
+.abilities {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2,1fr);
+
+    gap: 12px;
+}
+
+.ability {
+    min-height: 105px;
+
+    padding: 18px;
+
+    background: #0b1117;
+
+    border: 1px solid #27313a;
+
+    display: grid;
+
+    grid-template-columns: 52px 1fr;
+
+    gap: 15px;
+
+    align-items: center;
+}
+
+.ability-icon-large {
+    width: 48px;
+    height: 48px;
+
+    object-fit: contain;
+}
+
+.ability-info strong {
+    display: block;
+
+    color: #fff;
+
+    font-size: .82rem;
+    letter-spacing: 1px;
+}
+
+.ability-info span {
+    display: block;
+
+    margin-top: 6px;
+
+    color: #7e8993;
+
+    font-size: .72rem;
+    line-height: 1.5;
+}
+
+
+/* =========================================================
+   WEAPON MODAL
+========================================================= */
+
+.weapon-modal-image {
+    width: 100%;
+    height: 240px;
+
+    object-fit: contain;
+
+    background:
+        radial-gradient(
+            circle,
+            rgba(255,70,85,.08),
+            transparent 60%
+        );
+}
+
+.weapon-modal-info {
+    padding: 30px 45px 40px;
+}
+
+.weapon-modal-category {
+    color: #ff4655;
+
+    font-size: .7rem;
+    font-weight: 900;
+    letter-spacing: 3px;
+}
+
+.weapon-modal-title {
+    margin: 8px 0 15px;
+
+    font-size: 3rem;
+
+    text-transform: uppercase;
+}
+
+.weapon-modal-description {
+    color: #a0a8b0;
+
+    line-height: 1.7;
+
+    margin-bottom: 25px;
+}
+
+.weapon-stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(4,1fr);
+
+    gap: 10px;
+}
+
+.weapon-stat {
+    padding: 15px;
+
+    background: #0b1117;
+
+    border: 1px solid #27313a;
+
+    text-align: center;
+}
+
+.weapon-stat strong {
+    display: block;
+
+    color: #ff4655;
+
+    font-size: 1rem;
+}
+
+.weapon-stat span {
+    display: block;
+
+    margin-top: 5px;
+
+    color: #7e8993;
+
+    font-size: .6rem;
+
+    text-transform: uppercase;
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer {
+    padding: 35px 8%;
+
+    border-top: 1px solid #252e37;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 20px;
+
+    color: #626b74;
+
+    font-size: .72rem;
+}
+
+.footer-brand {
+    color: #ff4655;
+
+    font-weight: 900;
+    letter-spacing: 2px;
+}
+
+.footer-disclaimer {
+    max-width: 500px;
+
+    line-height: 1.6;
+
+    text-align: center;
+}
+
+.footer-disclaimer strong {
+    color: #9ca5ae;
+}
+
+
+/* =========================================================
+   RESPONSIVE
+========================================================= */
+
+@media (max-width: 1000px) {
+
+    .hero-content {
+        width: 62%;
+    }
+
+    .hero-artwork {
+        width: 65%;
+    }
+
+}
+
+@media (max-width: 900px) {
+
+    .nav-links {
+        position: absolute;
+
+        top: 75px;
+        left: 0;
+
+        width: 100%;
+
+        display: none;
+
+        flex-direction: column;
+
+        padding: 25px;
+
+        background: #0b1117;
+    }
+
+    .nav-links.open {
+        display: flex;
+    }
+
+    .mobile-menu {
+        display: block;
+    }
+
+    .hero {
+        min-height: auto;
+
+        padding: 80px 6% 0;
+
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .hero-content {
+        width: 100%;
+        padding-bottom: 30px;
+    }
+
+    .hero-artwork {
+        position: relative;
+
+        top: auto;
+        right: auto;
+
+        width: 100%;
+        height: 400px;
+
+        margin-top: 20px;
+    }
+
+    .strategy-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-top {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-image-box {
+        height: 380px;
+        min-height: 380px;
+    }
+
+    .abilities {
+        grid-template-columns: 1fr;
+    }
+
+}
+
+@media (max-width: 600px) {
+
+    section {
+        padding: 75px 6%;
+    }
+
+    .hero-title {
+        font-size: 4rem;
+        letter-spacing: -3px;
+    }
+
+    .hero-buttons {
+        flex-direction: column;
+    }
+
+    .hero-artwork {
+        height: 280px;
+    }
+
+    .section-title {
+        font-size: 2.2rem;
+    }
+
+    .agent-grid {
+        grid-template-columns: repeat(3,1fr);
+        gap: 8px;
+    }
+
+    .agent-card {
+        min-height: 125px;
+        padding: 10px 5px;
+    }
+
+    .agent-icon {
+        width: 48px;
+        height: 48px;
+    }
+
+    .agent-name-small {
+        font-size: .67rem;
+    }
+
+    .search-box {
+        margin-left: 0;
+        width: 100%;
+    }
+
+    .weapon-grid {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .weapon-image {
+        width: 120px;
+        height: 70px;
+    }
+
+    .weapon-name {
+        font-size: .75rem;
+    }
+
+    .download-section {
+        margin: 50px 6% 60px;
+    }
+
+    .discord-section {
+        margin: 0 6% 70px;
+    }
+
+    .download-section h2 {
+        font-size: 2rem;
+    }
+
+    .discord-section h2 {
+        font-size: 1.8rem;
+    }
+
+    .download-button,
+    .discord-button {
+        width: 100%;
+    }
+
+    .weapon-stats {
+        grid-template-columns: repeat(2,1fr);
+    }
+
+    .weapon-modal-info {
+        padding: 25px 20px 30px;
+    }
+
+    .weapon-modal-title {
+        font-size: 2.4rem;
+    }
+
+    footer {
+        flex-direction: column;
+        text-align: center;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     NAVBAR
+========================================================= -->
+
+<header>
+
+<a href="#home" class="nav-logo">
+    <span class="nav-v">V</span>
+    VALORANT
+</a>
+
+<nav class="nav-links" id="navLinks">
+
+    <a href="#home">HOME</a>
+    <a href="#agents">AGENTS</a>
+    <a href="#weapons">WEAPONS</a>
+    <a href="#strategy">STRATEGY</a>
+    <a href="#download">DOWNLOAD</a>
+
+    <a
+        href="https://playvalorant.com/en-us/download/"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="nav-play"
+    >
+        PLAY NOW
+    </a>
+
+</nav>
+
+<div class="mobile-menu" id="mobileMenu">
+    ☰
+</div>
+
+</header>
+
+
+<main>
+
+
+<!-- =========================================================
+     HERO
+========================================================= -->
+
+<section class="hero" id="home">
+
+<div class="hero-content">
+
+    <div class="eyebrow">
+        VALORANT // AGENT & WEAPON DATABASE
+    </div>
+
+    <h1 class="hero-title">
+        CHOOSE<br>
+        YOUR <span>AGENT.</span>
+    </h1>
+
+    <p class="hero-description">
+
+        Blend your style and experience on a global,
+        competitive stage.
+
+        You have 13 rounds to attack and defend your
+        side using sharp gunplay and tactical abilities.
+
+        <br><br>
+
+        With one life per round, you'll need to think
+        faster than your opponent if you want to survive.
+
+    </p>
+
+    <div class="hero-buttons">
+
+        <a href="#agents" class="btn btn-primary">
+            EXPLORE AGENTS
+        </a>
+
+        <a href="#weapons" class="btn btn-secondary">
+            VIEW WEAPONS
+        </a>
+
+    </div>
+
+</div>
+
+<div class="hero-artwork">
+
+    <img
+        src="Valorant.jpg"
+        alt="VALORANT promotional artwork"
+    >
+
+    <div class="hero-artwork-overlay"></div>
+
+</div>
+
+</section>
+
+
+<div class="section-divider"></div>
+
+
+<!-- =========================================================
+     AGENTS
+========================================================= -->
+
+<section id="agents">
+
+<div class="section-header">
+
+    <div class="section-label">
+        PROTOCOL DATABASE
+    </div>
+
+    <h2 class="section-title">
+        AGENTS
+    </h2>
+
+    <p class="section-subtitle">
+
+        Choose an Agent using their icon.
+        Click one to view their full portrait,
+        abilities and descriptions.
+
+    </p>
+
+</div>
+
+
+<div class="agent-controls">
+
+    <button class="filter-btn active" data-filter="all">
+        ALL
+    </button>
+
+    <button class="filter-btn" data-filter="duelist">
+        DUELIST
+    </button>
+
+    <button class="filter-btn" data-filter="initiator">
+        INITIATOR
+    </button>
+
+    <button class="filter-btn" data-filter="controller">
+        CONTROLLER
+    </button>
+
+    <button class="filter-btn" data-filter="sentinel">
+        SENTINEL
+    </button>
+
+    <input
+        class="search-box"
+        id="agentSearch"
+        type="text"
+        placeholder="SEARCH AGENT..."
+    >
+
+</div>
+
+
+<div class="agent-grid" id="agentGrid">
+
+    <div class="loading">
+        LOADING AGENT DATABASE...
+    </div>
+
+</div>
+
+</section>
+
+
+<div class="section-divider"></div>
+
+
+<!-- =========================================================
+     WEAPONS
+========================================================= -->
+
+<section id="weapons">
+
+<div class="section-header">
+
+    <div class="section-label">
+        ARMORY DATABASE
+    </div>
+
+    <h2 class="section-title">
+        WEAPONS
+    </h2>
+
+    <p class="section-subtitle">
+
+        Browse the VALORANT arsenal. Select a weapon
+        category or search for a specific weapon.
+
+    </p>
+
+</div>
+
+
+<div class="weapon-controls">
+
+    <button
+        class="filter-btn active"
+        data-weapon-filter="all"
+    >
+        ALL
+    </button>
+
+    <button
+        class="filter-btn"
+        data-weapon-filter="sidearm"
+    >
+        SIDEARMS
+    </button>
+
+    <button
+        class="filter-btn"
+        data-weapon-filter="smg"
+    >
+        SMGS
+    </button>
+
+    <button
+        class="filter-btn"
+        data-weapon-filter="shotgun"
+    >
+        SHOTGUNS
+    </button>
+
+    <button
+        class="filter-btn"
+        data-weapon-filter="rifle"
+    >
+        RIFLES
+    </button>
+
+    <button
+        class="filter-btn"
+        data-weapon-filter="sniper"
+    >
+        SNIPERS
+    </button>
+
+    <button
+        class="filter-btn"
+        data-weapon-filter="heavy"
+    >
+        HEAVY
+    </button>
+
+    <button
+        class="filter-btn"
+        data-weapon-filter="melee"
+    >
+        MELEE
+    </button>
+
+    <input
+        class="search-box"
+        id="weaponSearch"
+        type="text"
+        placeholder="SEARCH WEAPON..."
+    >
+
+</div>
+
+
+<div
+    class="weapon-grid"
+    id="weaponGrid"
+>
+
+    <div class="loading">
+        LOADING WEAPON DATABASE...
+    </div>
+
+</div>
+
+</section>
+
+
+<div class="section-divider"></div>
+
+
+<!-- =========================================================
+     STRATEGY
+========================================================= -->
+
+<section id="strategy">
+
+<div class="section-header">
+
+    <div class="section-label">
+        IMPROVE YOUR GAME
+    </div>
+
+    <h2 class="section-title">
+        CORE STRATEGY
+    </h2>
+
+    <p class="section-subtitle">
+
+        Mechanical skill matters, but smart
+        decision-making wins rounds. Build strong
+        fundamentals before focusing on advanced plays.
+
+    </p>
+
+</div>
+
+
+<div class="strategy-grid">
+
+
+<div class="strategy-card">
+
+    <div class="strategy-number">
+        01 // AIM
+    </div>
+
+    <h3>
+        Crosshair Placement
+    </h3>
+
+    <p>
+        Keep your crosshair at head level and pre-aim
+        common angles before you expose yourself.
+        Instead of reacting after an enemy appears,
+        position your crosshair where an enemy is most
+        likely to be. Clear angles systematically and
+        keep your crosshair close to the next possible
+        target so your first shot requires minimal
+        adjustment.
+    </p>
+
+</div>
+
+
+<div class="strategy-card">
+
+    <div class="strategy-number">
+        02 // MOVEMENT
+    </div>
+
+    <h3>
+        Movement & Peeking
+    </h3>
+
+    <p>
+        Learn when to jiggle peek, shoulder peek,
+        wide swing or hold an angle. Stop your movement
+        before committing to accurate shots. Avoid
+        repeatedly peeking the same angle because
+        opponents can easily pre-aim your timing.
+        Change your peek timing and use utility when
+        entering dangerous areas.
+    </p>
+
+</div>
+
+
+<div class="strategy-card">
+
+    <div class="strategy-number">
+        03 // ATTACK
+    </div>
+
+    <h3>
+        Attack Strategy
+    </h3>
+
+    <p>
+        Attack with a purpose instead of simply rushing
+        toward a site. Use utility to gain information,
+        deny defenders and create safe areas for your
+        team. Once space is created, trade teammates,
+        control important positions and plant the Spike
+        where your team can defend it effectively.
+    </p>
+
+</div>
+
+
+<div class="strategy-card">
+
+    <div class="strategy-number">
+        04 // DEFENSE
+    </div>
+
+    <h3>
+        Defensive Play
+    </h3>
+
+    <p>
+        Defending does not always mean taking the first
+        fight. Hold useful positions, gather information
+        and stay alive when possible. If attackers commit
+        to another site, rotate using the information
+        available instead of guessing. After a retake,
+        coordinate utility and enter together rather
+        than taking isolated fights.
+    </p>
+
+</div>
+
+
+<div class="strategy-card">
+
+    <div class="strategy-number">
+        05 // ECONOMY
+    </div>
+
+    <h3>
+        Economy
+    </h3>
+
+    <p>
+        Understand when your team can afford rifles,
+        shields and abilities and when saving is better.
+        Avoid buying expensive equipment alone when the
+        rest of your team cannot match it. Coordinate
+        force buys and saves so the entire team can reach
+        a strong buy together on the following round.
+    </p>
+
+</div>
+
+
+<div class="strategy-card">
+
+    <div class="strategy-number">
+        06 // TEAMPLAY
+    </div>
+
+    <h3>
+        Communication
+    </h3>
+
+    <p>
+        Give short, accurate and useful callouts.
+        Communicate enemy locations, damage, utility,
+        Spike information and rotations. Avoid flooding
+        voice chat during fights. Good communication
+        gives teammates information they can immediately
+        act on and helps the team make faster decisions.
+    </p>
+
+</div>
+
+
+<div class="strategy-card">
+
+    <div class="strategy-number">
+        07 // UTILITY
+    </div>
+
+    <h3>
+        Use Utility With Purpose
+    </h3>
+
+    <p>
+        Do not use abilities simply because they are
+        available. Think about what each piece of utility
+        accomplishes. Smokes can deny vision, flashes
+        can create safe opportunities, information tools
+        can reveal positions and defensive abilities can
+        delay pushes. Combine abilities with teammate
+        actions whenever possible.
+    </p>
+
+</div>
+
+
+<div class="strategy-card">
+
+    <div class="strategy-number">
+        08 // INFORMATION
+    </div>
+
+    <h3>
+        Play Around Information
+    </h3>
+
+    <p>
+        Pay attention to enemy utility, footsteps,
+        revealed positions, missing players and Spike
+        information. Every piece of information can
+        change your decision. If several enemies are
+        confirmed on one side of the map, your team can
+        often exploit the space they have left behind.
+    </p>
+
+</div>
+
+
+<div class="strategy-card">
+
+    <div class="strategy-number">
+        09 // CLUTCH
+    </div>
+
+    <h3>
+        Stay Calm
+    </h3>
+
+    <p>
+        In clutch situations, slow the game down and
+        make the enemy work for information. Isolate
+        fights instead of exposing yourself to several
+        opponents at once. Use sound and timing to
+        create uncertainty, and remember that surviving
+        longer can force opponents into mistakes.
+    </p>
+
+</div>
+
+
+</div>
+
+</section>
+
+
+<div class="section-divider"></div>
+
+
+<!-- =========================================================
+     DOWNLOAD
+========================================================= -->
+
+<section
+    class="download-section"
+    id="download"
+>
+
+<h2>
+    READY TO ENTER?
+</h2>
+
+<p>
+    Download VALORANT and step into the battlefield.
+    Choose your Agent, master your abilities and compete.
+</p>
+
+<a
+    href="https://playvalorant.com/en-us/download/"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="download-button"
+>
+    DOWNLOAD VALORANT ↗
+</a>
+
+</section>
+
+
+<!-- =========================================================
+     DISCORD
+========================================================= -->
+
+<section class="discord-section">
+
+<h2>
+    JOIN THE COMMUNITY
+</h2>
+
+<p>
+    Want to talk VALORANT, share strategies,
+    discuss Agents or just hang out?
+    Join my Discord server and become part of the community.
+</p>
+
+<a
+    href="https://discord.gg/ARgCYm26B"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="discord-button"
+>
+    JOIN MY DISCORD ↗
+</a>
+
+</section>
+
+
+</main>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer>
+
+<div class="footer-brand">
+    VALORANT // DATABASE
+</div>
+
+<div>
+    <i>
+        Made by ~ 'Raghav'
+    </i>
+</div>
+
+<div class="footer-disclaimer">
+
+<strong>
+    Unofficial fan-made VALORANT Database
+</strong>
+
+<br>
+
+Created by a fan for the VALORANT community.
+This website is not affiliated with, endorsed by,
+sponsored by, or associated with Riot Games or VALORANT.
+
+</div>
+
+</footer>
+
+
+<!-- =========================================================
+     AGENT MODAL
+========================================================= -->
+
+<div class="modal" id="agentModal">
+
+<div class="modal-content">
+
+<button class="close-modal" id="closeAgentModal">
+    ×
+</button>
+
+<div class="modal-top">
+
+<div class="modal-image-box">
+
+<img
+    id="modalPortrait"
+    class="modal-portrait"
+    src=""
+    alt=""
+>
+
+</div>
+
+<div class="modal-info">
+
+<div
+    id="modalRole"
+    class="modal-role"
+>
+    ROLE
+</div>
+
+<h2
+    id="modalTitle"
+    class="modal-title"
+>
+    AGENT
+</h2>
+
+<p
+    id="modalDescription"
+    class="modal-description"
+></p>
+
+</div>
+
+</div>
+
+<div class="modal-abilities-section">
+
+<div class="abilities-title">
+    ABILITIES
+</div>
+
+<div
+    class="abilities"
+    id="abilitiesContainer"
+></div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- =========================================================
+     WEAPON MODAL
+========================================================= -->
+
+<div class="modal" id="weaponModal">
+
+<div class="modal-content">
+
+<button class="close-modal" id="closeWeaponModal">
+    ×
+</button>
+
+<img
+    id="weaponModalImage"
+    class="weapon-modal-image"
+    src=""
+    alt=""
+>
+
+<div class="weapon-modal-info">
+
+<div
+    id="weaponModalCategory"
+    class="weapon-modal-category"
+>
+    WEAPON
+</div>
+
+<h2
+    id="weaponModalTitle"
+    class="weapon-modal-title"
+>
+    WEAPON
+</h2>
+
+<p
+    id="weaponModalDescription"
+    class="weapon-modal-description"
+></p>
+
+<div class="weapon-stats">
+
+<div class="weapon-stat">
+    <strong id="weaponCost">—</strong>
+    <span>Cost</span>
+</div>
+
+<div class="weapon-stat">
+    <strong id="weaponMagazine">—</strong>
+    <span>Magazine</span>
+</div>
+
+<div class="weapon-stat">
+    <strong id="weaponFireRate">—</strong>
+    <span>Fire Rate</span>
+</div>
+
+<div class="weapon-stat">
+    <strong id="weaponCategoryStat">—</strong>
+    <span>Category</span>
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* =========================================================
+   DATA
+========================================================= */
+
+let allAgents = [];
+let allWeapons = [];
+
+let currentAgentFilter = "all";
+let currentWeaponFilter = "all";
+
+
+/* =========================================================
+   ELEMENTS
+========================================================= */
+
+const agentGrid =
+    document.getElementById("agentGrid");
+
+const agentSearch =
+    document.getElementById("agentSearch");
+
+const weaponGrid =
+    document.getElementById("weaponGrid");
+
+const weaponSearch =
+    document.getElementById("weaponSearch");
+
+
+/* =========================================================
+   AGENT API
+========================================================= */
+
+async function loadAgents() {
+
+    try {
+
+        const response =
+            await fetch(
+                "https://valorant-api.com/v1/agents?isPlayableCharacter=true"
+            );
+
+        if (!response.ok) {
+            throw new Error("Agent API unavailable");
+        }
+
+        const result =
+            await response.json();
+
+        allAgents =
+            result.data.sort(
+                (a,b) =>
+                    a.displayName.localeCompare(
+                        b.displayName
+                    )
+            );
+
+        renderAgents();
+
+    } catch(error) {
+
+        console.error(error);
+
+        agentGrid.innerHTML = `
+            <div class="loading">
+                AGENT DATABASE FAILED TO LOAD.
+            </div>
+        `;
+    }
+}
+
+
+/* =========================================================
+   AGENT ROLE
+========================================================= */
+
+function getRole(agent) {
+
+    return (
+        agent.role?.displayName ||
+        "Agent"
+    );
+
+}
+
+
+/* =========================================================
+   RENDER AGENTS
+========================================================= */
+
+function renderAgents() {
+
+    const search =
+        agentSearch.value
+            .toLowerCase()
+            .trim();
+
+    const filtered =
+        allAgents.filter(agent => {
+
+            const role =
+                getRole(agent)
+                    .toLowerCase();
+
+            const name =
+                agent.displayName
+                    .toLowerCase();
+
+            return (
+                (
+                    currentAgentFilter === "all" ||
+                    role === currentAgentFilter
+                )
+                &&
+                name.includes(search)
+            );
+
+        });
+
+
+    if (!filtered.length) {
+
+        agentGrid.innerHTML = `
+            <div class="loading">
+                NO AGENTS FOUND.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    agentGrid.innerHTML = "";
+
+
+    filtered.forEach(
+        (agent,index) => {
+
+            const card =
+                document.createElement("article");
+
+            card.className =
+                "agent-card";
+
+
+            const icon =
+                agent.displayIcon ||
+                agent.displayIconSmall ||
+                agent.bustPortrait;
+
+
+            card.innerHTML = `
+
+                <div class="agent-number">
+                    ${String(index+1).padStart(2,"0")}
+                </div>
+
+                <img
+                    class="agent-icon"
+                    src="${icon}"
+                    alt="${agent.displayName}"
+                    loading="lazy"
+                >
+
+                <div class="agent-role-small">
+                    ${getRole(agent).toUpperCase()}
+                </div>
+
+                <div class="agent-name-small">
+                    ${agent.displayName}
+                </div>
+
+            `;
+
+
+            card.addEventListener(
+                "click",
+                () => openAgent(agent)
+            );
+
+
+            agentGrid.appendChild(card);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   AGENT FILTERS
+========================================================= */
+
+document
+    .querySelectorAll(
+        "[data-filter]"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll(
+                        "[data-filter]"
+                    )
+                    .forEach(btn =>
+                        btn.classList.remove(
+                            "active"
+                        )
+                    );
+
+                button.classList.add("active");
+
+                currentAgentFilter =
+                    button.dataset.filter;
+
+                renderAgents();
+
+            }
+        );
+
+    });
+
+
+agentSearch.addEventListener(
+    "input",
+    renderAgents
+);
+
+
+/* =========================================================
+   WEAPON CATEGORY NORMALIZER
+   THIS IS THE IMPORTANT FIX
+========================================================= */
+
+function getWeaponCategory(weapon) {
+
+    const raw =
+        String(
+            weapon.category ||
+            weapon.displayName ||
+            ""
+        )
+        .toLowerCase();
+
+
+    /*
+        The API category can look like:
+
+        EEquippableCategory::Sidearm
+        EEquippableCategory::SMG
+        EEquippableCategory::Shotgun
+        EEquippableCategory::Rifle
+        EEquippableCategory::Sniper
+        EEquippableCategory::Heavy
+        EEquippableCategory::Melee
+    */
+
+
+    if (
+        raw.includes("sidearm")
+    ) {
+        return "sidearm";
+    }
+
+
+    if (
+        raw.includes("smg") ||
+        raw.includes("submachine")
+    ) {
+        return "smg";
+    }
+
+
+    if (
+        raw.includes("shotgun")
+    ) {
+        return "shotgun";
+    }
+
+
+    if (
+        raw.includes("sniper")
+    ) {
+        return "sniper";
+    }
+
+
+    if (
+        raw.includes("heavy")
+    ) {
+        return "heavy";
+    }
+
+
+    if (
+        raw.includes("rifle")
+    ) {
+        return "rifle";
+    }
+
+
+    if (
+        raw.includes("melee")
+    ) {
+        return "melee";
+    }
+
+
+    return "other";
+
+}
+
+
+/* =========================================================
+   WEAPON DISPLAY NAME
+========================================================= */
+
+function getWeaponCategoryName(weapon) {
+
+    const category =
+        getWeaponCategory(weapon);
+
+    const names = {
+        sidearm: "SIDEARM",
+        smg: "SMG",
+        shotgun: "SHOTGUN",
+        rifle: "RIFLE",
+        sniper: "SNIPER",
+        heavy: "HEAVY",
+        melee: "MELEE",
+        other: "WEAPON"
+    };
+
+    return names[category] || "WEAPON";
+}
+
+
+/* =========================================================
+   LOAD WEAPONS
+========================================================= */
+
+async function loadWeapons() {
+
+    try {
+
+        const response =
+            await fetch(
+                "https://valorant-api.com/v1/weapons"
+            );
+
+        if (!response.ok) {
+            throw new Error("Weapon API unavailable");
+        }
+
+        const result =
+            await response.json();
+
+
+        /*
+            Remove duplicate / invalid entries.
+        */
+
+        allWeapons =
+            result.data
+                .filter(
+                    weapon =>
+                        weapon &&
+                        weapon.displayName
+                )
+                .sort(
+                    (a,b) =>
+                        a.displayName.localeCompare(
+                            b.displayName
+                        )
+                );
+
+
+        console.log(
+            "Weapons loaded:",
+            allWeapons
+        );
+
+
+        renderWeapons();
+
+    } catch(error) {
+
+        console.error(error);
+
+        weaponGrid.innerHTML = `
+            <div class="loading">
+                WEAPON DATABASE FAILED TO LOAD.
+            </div>
+        `;
+    }
+
+}
+
+
+/* =========================================================
+   RENDER WEAPONS
+========================================================= */
+
+function renderWeapons() {
+
+    const search =
+        weaponSearch.value
+            .toLowerCase()
+            .trim();
+
+
+    const filtered =
+        allWeapons.filter(weapon => {
+
+            const category =
+                getWeaponCategory(weapon);
+
+            const name =
+                weapon.displayName
+                    .toLowerCase();
+
+
+            return (
+                (
+                    currentWeaponFilter === "all" ||
+                    category === currentWeaponFilter
+                )
+                &&
+                name.includes(search)
+            );
+
+        });
+
+
+    if (!filtered.length) {
+
+        weaponGrid.innerHTML = `
+            <div class="loading">
+                NO WEAPONS FOUND.
+            </div>
+        `;
+
+        return;
+    }
+
+
+    weaponGrid.innerHTML = "";
+
+
+    filtered.forEach(
+        (weapon,index) => {
+
+            const card =
+                document.createElement("article");
+
+            card.className =
+                "weapon-card";
+
+
+            const image =
+                weapon.displayIcon ||
+                weapon.killStreamIcon;
+
+
+            const category =
+                getWeaponCategoryName(weapon);
+
+
+            const cost =
+                weapon.shopData?.cost ??
+                "—";
+
+
+            card.innerHTML = `
+
+                <img
+                    class="weapon-image"
+                    src="${image || ""}"
+                    alt="${weapon.displayName}"
+                    loading="lazy"
+                >
+
+                <div class="weapon-category">
+                    ${category}
+                </div>
+
+                <div class="weapon-name">
+                    ${weapon.displayName}
+                </div>
+
+                <div class="weapon-cost">
+                    ${cost === "—" ? "COST N/A" : "CREDITS " + cost}
+                </div>
+
+            `;
+
+
+            const imageElement =
+                card.querySelector(
+                    ".weapon-image"
+                );
+
+
+            imageElement.onerror =
+                function() {
+
+                    this.style.display =
+                        "none";
+
+                };
+
+
+            card.addEventListener(
+                "click",
+                () => openWeapon(weapon)
+            );
+
+
+            weaponGrid.appendChild(card);
+
+        }
+    );
+
+}
+
+
+/* =========================================================
+   WEAPON FILTER BUTTONS
+========================================================= */
+
+document
+    .querySelectorAll(
+        "[data-weapon-filter]"
+    )
+    .forEach(button => {
+
+        button.addEventListener(
+            "click",
+            () => {
+
+                document
+                    .querySelectorAll(
+                        "[data-weapon-filter]"
+                    )
+                    .forEach(btn =>
+                        btn.classList.remove(
+                            "active"
+                        )
+                    );
+
+
+                button.classList.add(
+                    "active"
+                );
+
+
+                currentWeaponFilter =
+                    button.dataset.weaponFilter;
+
+
+                renderWeapons();
+
+            }
+        );
+
+    });
+
+
+weaponSearch.addEventListener(
+    "input",
+    renderWeapons
+);
+
+
+/* =========================================================
+   AGENT MODAL
+========================================================= */
+
+const agentModal =
+    document.getElementById(
+        "agentModal"
+    );
+
+const modalPortrait =
+    document.getElementById(
+        "modalPortrait"
+    );
+
+const modalRole =
+    document.getElementById(
+        "modalRole"
+    );
+
+const modalTitle =
+    document.getElementById(
+        "modalTitle"
+    );
+
+const modalDescription =
+    document.getElementById(
+        "modalDescription"
+    );
+
+const abilitiesContainer =
+    document.getElementById(
+        "abilitiesContainer"
+    );
+
+
+function openAgent(agent) {
+
+    modalTitle.textContent =
+        agent.displayName;
+
+
+    modalRole.textContent =
+        getRole(agent).toUpperCase();
+
+
+    modalDescription.textContent =
+        agent.description ||
+        "Agent information unavailable.";
+
+
+    modalPortrait.src =
+        agent.fullPortrait ||
+        agent.fullPortraitV2 ||
+        agent.bustPortrait ||
+        agent.displayIcon;
+
+
+    modalPortrait.alt =
+        agent.displayName;
+
+
+    abilitiesContainer.innerHTML = "";
+
+
+    const abilities =
+        (agent.abilities || [])
+            .filter(
+                ability =>
+                    ability.displayName
+            );
+
+
+    abilities.forEach(
+        ability => {
+
+            const box =
+                document.createElement("div");
+
+            box.className =
+                "ability";
+
+
+            box.innerHTML = `
+
+                <img
+                    class="ability-icon-large"
+                    src="${ability.displayIcon || agent.displayIcon}"
+                    alt=""
+                >
+
+                <div class="ability-info">
+
+                    <strong>
+                        ${ability.displayName}
+                    </strong>
+
+                    <span>
+                        ${
+                            ability.description ||
+                            "Ability information unavailable."
+                        }
+                    </span>
+
+                </div>
+
+            `;
+
+
+            abilitiesContainer.appendChild(box);
+
+        }
+    );
+
+
+    agentModal.classList.add("show");
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =========================================================
+   WEAPON MODAL
+========================================================= */
+
+const weaponModal =
+    document.getElementById(
+        "weaponModal"
+    );
+
+const weaponModalImage =
+    document.getElementById(
+        "weaponModalImage"
+    );
+
+const weaponModalCategory =
+    document.getElementById(
+        "weaponModalCategory"
+    );
+
+const weaponModalTitle =
+    document.getElementById(
+        "weaponModalTitle"
+    );
+
+const weaponModalDescription =
+    document.getElementById(
+        "weaponModalDescription"
+    );
+
+const weaponCost =
+    document.getElementById(
+        "weaponCost"
+    );
+
+const weaponMagazine =
+    document.getElementById(
+        "weaponMagazine"
+    );
+
+const weaponFireRate =
+    document.getElementById(
+        "weaponFireRate"
+    );
+
+const weaponCategoryStat =
+    document.getElementById(
+        "weaponCategoryStat"
+    );
+
+
+function openWeapon(weapon) {
+
+    const category =
+        getWeaponCategoryName(weapon);
+
+
+    weaponModalTitle.textContent =
+        weapon.displayName;
+
+
+    weaponModalCategory.textContent =
+        category;
+
+
+    weaponModalImage.src =
+        weapon.displayIcon ||
+        weapon.killStreamIcon ||
+        "";
+
+
+    weaponModalImage.alt =
+        weapon.displayName;
+
+
+    /*
+       Important:
+       We deliberately do NOT display
+       wall penetration or damage-range
+       descriptions here.
+    */
+
+    const weaponDescriptions = {
+
+        Classic:
+            "A reliable sidearm with balanced accuracy and a strong free-buy option.",
+
+        Shorty:
+            "A compact shotgun designed for extremely close-range engagements and surprise plays.",
+
+        Frenzy:
+            "A fully automatic sidearm that performs well at close range when controlled carefully.",
+
+        Ghost:
+            "A precise semi-automatic sidearm with strong accuracy and useful damage at medium range.",
+
+        Sheriff:
+            "A powerful sidearm built around accurate, high-impact shots and strong mechanical precision.",
+
+        Stinger:
+            "A compact automatic weapon suited to aggressive close-range fights and economical rounds.",
+
+        Spectre:
+            "A versatile SMG that performs well in close and medium-range engagements.",
+
+        Bucky:
+            "A pump-action shotgun designed for powerful close-range engagements.",
+
+        Judge:
+            "An automatic shotgun that excels in close quarters when used with good positioning.",
+
+        Bulldog:
+            "An affordable automatic rifle that provides a flexible option for controlled fights.",
+
+        Guardian:
+            "A semi-automatic rifle focused on precision and accurate single-shot engagements.",
+
+        Phantom:
+            "A versatile automatic rifle with strong controllability and excellent close-to-medium range performance.",
+
+        Vandal:
+            "A powerful automatic rifle favored for precise rifle fights and consistent headshot potential.",
+
+        Marshal:
+            "A lightweight sniper rifle suited to precise long-range shots and economical buys.",
+
+        Outlaw:
+            "A two-shot sniper rifle designed to pressure opponents with strong ranged damage.",
+
+        Operator:
+            "A powerful bolt-action sniper rifle built for holding long sightlines and securing picks.",
+
+        Ares:
+            "A heavy automatic weapon that can provide sustained fire while controlling important areas.",
+
+        Odin:
+            "A high-capacity heavy machine gun designed for sustained fire and area control.",
+
+        "Melee":
+            "The standard close-range melee weapon used when ammunition is unnecessary."
+    };
+
+
+    weaponModalDescription.textContent =
+        weaponDescriptions[weapon.displayName] ||
+        `${weapon.displayName} is a VALORANT weapon designed for its specific combat role and economy.`;
+
+
+    weaponCost.textContent =
+        weapon.shopData?.cost ??
+        "—";
+
+
+    weaponMagazine.textContent =
+        weapon.weaponStats?.magazineSize ??
+        "—";
+
+
+    weaponFireRate.textContent =
+        weapon.weaponStats?.fireRate
+        ? Number(
+            weapon.weaponStats.fireRate
+        ).toFixed(2)
+        : "—";
+
+
+    weaponCategoryStat.textContent =
+        category;
+
+
+    weaponModal.classList.add("show");
+
+    document.body.style.overflow =
+        "hidden";
+
+}
+
+
+/* =========================================================
+   CLOSE MODALS
+========================================================= */
+
+function closeAllModals() {
+
+    agentModal.classList.remove("show");
+    weaponModal.classList.remove("show");
+
+    document.body.style.overflow = "";
+
+}
+
+
+document
+    .getElementById(
+        "closeAgentModal"
+    )
+    .addEventListener(
+        "click",
+        closeAllModals
+    );
+
+
+document
+    .getElementById(
+        "closeWeaponModal"
+    )
+    .addEventListener(
+        "click",
+        closeAllModals
+    );
+
+
+agentModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === agentModal
+        ) {
+            closeAllModals();
+        }
+
+    }
+);
+
+
+weaponModal.addEventListener(
+    "click",
+    event => {
+
+        if (
+            event.target === weaponModal
+        ) {
+            closeAllModals();
+        }
+
+    }
+);
+
+
+document.addEventListener(
+    "keydown",
+    event => {
+
+        if (
+            event.key === "Escape"
+        ) {
+            closeAllModals();
+        }
+
+    }
+);
+
+
+/* =========================================================
+   MOBILE NAV
+========================================================= */
+
+const mobileMenu =
+    document.getElementById(
+        "mobileMenu"
+    );
+
+const navLinks =
+    document.getElementById(
+        "navLinks"
+    );
+
+
+mobileMenu.addEventListener(
+    "click",
+    () => {
+
+        navLinks.classList.toggle(
+            "open"
+        );
+
+    }
+);
+
+
+document
+    .querySelectorAll(
+        ".nav-links a"
+    )
+    .forEach(
+        link => {
+
+            link.addEventListener(
+                "click",
+                () => {
+
+                    navLinks.classList.remove(
+                        "open"
+                    );
+
+                }
+            );
+
+        }
+    );
+
+
+/* =========================================================
+   START DATABASE
+========================================================= */
+
+loadAgents();
+loadWeapons();
+
+</script>
+
+</body>
+</html>
